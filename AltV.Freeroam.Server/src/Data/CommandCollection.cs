@@ -8,11 +8,15 @@ public sealed class CommandCollection
 
     public void Register(string name, Action<IPlayer, string[]> handler) => Commands.Add(name, handler);
 
-    public bool Execute(IPlayer player, string name, string[] args)
+    public void Execute(IPlayer player, string name, string[] args)
     {
-        if (!Commands.ContainsKey(name))
-            return false;
-        Commands[name].Invoke(player, args);
-        return true;
+        try
+        {
+            Commands[name].Invoke(player, args);
+        }
+        catch
+        {
+            player.Emit("sendConsoleMessage", "Unknown command");
+        }
     }
 }
