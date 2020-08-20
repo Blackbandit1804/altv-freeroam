@@ -1,7 +1,7 @@
 using System;
 using AltV.Net;
 
-public class Server : Resource
+public sealed class Server : Resource
 {
     public override void OnStart()
     {
