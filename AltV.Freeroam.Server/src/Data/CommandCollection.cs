@@ -14,9 +14,9 @@ public sealed class CommandCollection
         {
             Commands[name].Invoke(player, args);
         }
-        catch
+        catch (Exception e)
         {
-            player.Emit("sendConsoleMessage", "Unknown command");
+            player.Emit("sendConsoleMessage", e.Message);
         }
     }
 }

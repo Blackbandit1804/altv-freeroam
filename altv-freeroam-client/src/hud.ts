@@ -4,7 +4,6 @@ import { Text2D } from "./data/Text2D"
 import { HudComponent } from "./data/HudComponent";
 
 let statusText = new Text2D(`ID ~y~#${alt.Player.local.id}`, 0, 0, 0.35);
-
 let drawStatusTextHandle = alt.everyTick(() => {
     statusText.drawThisFrame()
 })

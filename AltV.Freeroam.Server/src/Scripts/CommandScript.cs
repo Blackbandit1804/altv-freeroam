@@ -7,12 +7,13 @@ using AltV.Net.Enums;
 
 public sealed class CommandScript : IScript
 {
+    private const int MaxWeaponAmmo = 250;
     private CommandCollection Commands { get; set; } = new CommandCollection();
 
     public CommandScript()
     {
         Alt.OnClient<IPlayer, string, string[]>("commandEntered", OnCommandEntered);
-        Commands.Register("coords", new Action<IPlayer, string[]>((player, args) =>
+        Commands.Register("pos", new Action<IPlayer, string[]>((player, args) =>
         {
             player.Emit("sendConsoleMessage", $"x: {player.Position.X} y: {player.Position.Y} z: {player.Position.Z} yaw: {player.Rotation.Yaw}");
         }));
@@ -20,10 +21,19 @@ public sealed class CommandScript : IScript
         {
             player.Emit("enterVehicle", Alt.CreateVehicle((uint)Enum.Parse(typeof(VehicleModel), args[0], true), player.Position, player.Rotation));
         }));
+        Commands.Register("del", new Action<IPlayer, string[]>((player, args) =>
+        {
+            player.Vehicle.Remove();
+        }));
+        Commands.Register("weapon", new Action<IPlayer, string[]>((player, args) =>
+        {
+            player.GiveWeapon((uint)Enum.Parse(typeof(WeaponModel), args[0], true), MaxWeaponAmmo, true);
+        }));
+        Commands.Register("tpm", new Action<IPlayer, string[]>((player, args) =>
+        {
+            player.Emit("teleportToMarker");
+        }));
     }
 
-    private void OnCommandEntered(IPlayer player, string name, string[] args)
-    {
-        Commands.Execute(player, name, args);
-    }
+    private void OnCommandEntered(IPlayer player, string name, string[] args) => Commands.Execute(player, name, args);
 }
