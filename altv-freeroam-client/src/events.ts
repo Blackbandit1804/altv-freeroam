@@ -1,20 +1,24 @@
 import * as alt from "alt-client"
 import * as native from "natives"
 import { VehicleSeat } from "./data/VehicleSeat";
+import { Skin } from "./data/Skin";
+import { Network } from "./data/Network";
 
 const lowestZCoord = -199.9
 
 alt.onServer("sendConsoleMessage", (message: string) => {
     return alt.log(`[SERVER] ${message.replace(/[\n\r]/g, "")}`);
 })
+
 alt.onServer("enterVehicle", (vehicle: alt.Vehicle) => {
-    let interval = alt.setInterval(() => {
+    let handle = Network.TimedInterval(() => {
         if (vehicle.scriptID) {
             native.setPedIntoVehicle(alt.Player.local.scriptID, vehicle.scriptID, VehicleSeat.Driver);
-            alt.clearInterval(interval);
+            alt.clearInterval(handle);
         }
-    }, 10);
+    })
 })
+
 alt.onServer("teleportToMarker", () => {
     let handle = native.getFirstBlipInfoId(8)
     if (native.doesBlipExist(handle)) {
@@ -22,4 +26,16 @@ alt.onServer("teleportToMarker", () => {
         native.setPedCoordsKeepVehicle(alt.Player.local.scriptID, coords.x, coords.y, lowestZCoord);
     }
 })
-alt.on("consoleCommand", (name: string, ...args: string[]) => alt.emitServer("commandEntered", name, args))
+
+alt.onServer("clientConnected", () => {
+    let handle = Network.TimedInterval(() => {
+        if (native.getEntityModel(alt.Player.local.scriptID)) {
+            Skin.setDefault()
+            alt.clearInterval(handle)
+        }
+    })
+})
+
+alt.on("consoleCommand", (name: string, ...args: string[]) => {
+    return alt.emitServer("commandEntered", name, args);
+})

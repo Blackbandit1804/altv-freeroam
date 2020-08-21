@@ -7,17 +7,17 @@ export class Text2D {
     x: number
     y: number
     scale: number
-    color: Color
     font: Font
+    color: Color
     isOutlined: boolean
 
-    constructor(text: string, x: number, y: number, scale: number, color: Color = Color.fromRgb(255, 255, 255), font: Font = Font.ChaletComprimeCologne, isOutlined: boolean = true) {
+    constructor(text: string, x: number, y: number, scale: number, font: Font = Font.ChaletComprimeCologne, color: Color = Color.fromRgb(255, 255, 255), isOutlined: boolean = true) {
         this.text = text
         this.x = x
         this.y = y
         this.scale = scale
-        this.color = color
         this.font = font
+        this.color = color
         this.isOutlined = isOutlined
     }
 

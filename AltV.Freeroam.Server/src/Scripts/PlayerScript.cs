@@ -12,5 +12,6 @@ public sealed class PlayerScript : IScript
     {
         player.Model = (uint)PedModel.FreemodeMale01;
         player.Spawn(SpawnPosition);
+        player.Emit("clientConnected");
     }
 }
