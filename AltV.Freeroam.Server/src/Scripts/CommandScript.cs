@@ -33,6 +33,13 @@ public sealed class CommandScript : IScript
         {
             player.Emit("teleportToMarker");
         }));
+        Commands.Register("heal", new Action<IPlayer, string[]>((player, args) =>
+        {
+            player.Health = player.MaxHealth;
+            player.Armor = player.MaxArmor;
+            if (player.IsInVehicle)
+                player.Emit("fixVehicle", player.Vehicle);
+        }));
     }
 
     private void OnCommandEntered(IPlayer player, string id, string[] args)

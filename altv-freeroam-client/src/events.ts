@@ -36,6 +36,11 @@ alt.onServer("clientConnected", () => {
     })
 })
 
+alt.onServer("fixVehicle", (vehicle: alt.Vehicle) => {
+    native.setVehicleFixed(vehicle.scriptID)
+    native.setVehicleDeformationFixed(vehicle.scriptID)
+})
+
 alt.on("consoleCommand", (name: string, ...args: string[]) => {
     return alt.emitServer("commandEntered", name, args);
 })
