@@ -6,16 +6,16 @@ public sealed class CommandCollection
 {
     private Dictionary<string, Action<IPlayer, string[]>> Commands { get; set; } = new Dictionary<string, Action<IPlayer, string[]>>();
 
-    public void Register(string name, Action<IPlayer, string[]> handler)
+    public void Register(string id, Action<IPlayer, string[]> handler)
     {
-        Commands.Add(name, handler);
+        Commands.Add(id, handler);
     }
     
-    public void Execute(IPlayer player, string name, string[] args)
+    public void Execute(IPlayer player, string id, string[] args)
     {
         try
         {
-            Commands[name].Invoke(player, args);
+            Commands[id].Invoke(player, args);
         }
         catch (Exception e)
         {

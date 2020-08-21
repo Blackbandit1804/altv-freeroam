@@ -3,18 +3,18 @@ import * as native from "natives"
 import { PedModel } from "./PedModel"
 import { Component } from "./Component";
 
-export class Skin {
-    static getModel() {
+class Skin {
+    getModel() {
         return native.getEntityModel(alt.Player.local.scriptID)
     }
 
-    static isModelValid() {
+    isModelValid() {
         if (this.getModel() == PedModel.FreemodeFemale01 || PedModel.FreemodeMale01)
             return true;
         return false;
     }
 
-    static isMale() {
+    isMale() {
         if (this.getModel() == PedModel.FreemodeMale01)
             return true
         else if (this.getModel() == PedModel.FreemodeFemale01)
@@ -22,11 +22,11 @@ export class Skin {
         throw new Error()
     }
 
-    static setVariation(component: Component, drawableId: number, textureId: number = 0, paletteId: number = 0) {
+    setVariation(component: Component, drawableId: number, textureId: number = 0, paletteId: number = 0) {
         native.setPedComponentVariation(alt.Player.local.scriptID, component, drawableId, textureId, paletteId)
     }
 
-    static setDefault() {
+    setDefault() {
         native.setPedDefaultComponentVariation(alt.Player.local.scriptID)
         native.clearAllPedProps(alt.Player.local.scriptID)
         if (this.isMale()) {
@@ -41,3 +41,6 @@ export class Skin {
         }
     }
 }
+
+const skin = new Skin()
+export default skin

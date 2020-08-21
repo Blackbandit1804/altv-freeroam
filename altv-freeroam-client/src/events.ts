@@ -1,8 +1,8 @@
 import * as alt from "alt-client"
 import * as native from "natives"
 import { VehicleSeat } from "./data/VehicleSeat";
-import { Skin } from "./data/Skin";
-import { Network } from "./data/Network";
+import skin from "./data/Skin";
+import network from "./data/Network";
 
 const lowestZCoord = -199.9
 
@@ -11,7 +11,7 @@ alt.onServer("sendConsoleMessage", (message: string) => {
 })
 
 alt.onServer("enterVehicle", (vehicle: alt.Vehicle) => {
-    let handle = Network.TimedInterval(() => {
+    let handle = network.timedInterval(() => {
         if (vehicle.scriptID) {
             native.setPedIntoVehicle(alt.Player.local.scriptID, vehicle.scriptID, VehicleSeat.Driver);
             alt.clearInterval(handle);
@@ -28,9 +28,9 @@ alt.onServer("teleportToMarker", () => {
 })
 
 alt.onServer("clientConnected", () => {
-    let handle = Network.TimedInterval(() => {
+    let handle = network.timedInterval(() => {
         if (native.getEntityModel(alt.Player.local.scriptID)) {
-            Skin.setDefault()
+            skin.setDefault()
             alt.clearInterval(handle)
         }
     })

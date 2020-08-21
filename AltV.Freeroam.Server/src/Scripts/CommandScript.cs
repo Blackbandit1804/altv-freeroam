@@ -35,8 +35,8 @@ public sealed class CommandScript : IScript
         }));
     }
 
-    private void OnCommandEntered(IPlayer player, string name, string[] args)
+    private void OnCommandEntered(IPlayer player, string id, string[] args)
     {
-        Commands.Execute(player, name, args);
+        Commands.Execute(player, id, args);
     }
 }
