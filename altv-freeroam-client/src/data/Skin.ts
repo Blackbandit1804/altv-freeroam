@@ -1,7 +1,7 @@
 import * as alt from "alt-client"
 import * as native from "natives"
-import { PedModel } from "./PedModel"
-import { Component } from "./Component";
+import { PedModel } from "../enums/PedModel"
+import { Component } from "../enums/Component"
 
 class Skin {
     getModel() {
@@ -22,13 +22,14 @@ class Skin {
         throw new Error()
     }
 
-    setVariation(component: Component, drawableId: number, textureId: number = 0, paletteId: number = 0) {
+    setVariation(component: Component, drawableId: number, textureId = 0, paletteId = 0) {
         native.setPedComponentVariation(alt.Player.local.scriptID, component, drawableId, textureId, paletteId)
     }
 
     setDefault() {
         native.setPedDefaultComponentVariation(alt.Player.local.scriptID)
         native.clearAllPedProps(alt.Player.local.scriptID)
+        native.clearPedBloodDamage(alt.Player.local.scriptID)
         if (this.isMale()) {
             this.setVariation(Component.Top, 15)        // Topless
             this.setVariation(Component.Undershirt, 15) // No Undershirt

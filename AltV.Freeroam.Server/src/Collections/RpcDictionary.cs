@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using AltV.Net.Elements.Entities;
 
-public sealed class RpcCollection
+public sealed class RpcDictionary
 {
-    private Dictionary<string, Func<IPlayer, object>> Calls { get; set; } = new Dictionary<string, Func<IPlayer, object>>();
+    private IDictionary<string, Func<IPlayer, object>> Calls { get; set; } = new Dictionary<string, Func<IPlayer, object>>();
 
     public void Register(string id, Func<IPlayer, object> handler) => Calls.Add(id, handler);
 

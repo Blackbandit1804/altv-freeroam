@@ -1,12 +1,12 @@
 import * as alt from "alt-client"
 import * as native from "natives"
-import { Text2D } from "./data/Text2D"
-import { HudComponent } from "./data/HudComponent";
-import { Font } from "./data/Font";
-import network from "./data/Network";
-import { Color } from "./data/Color";
+import { TextLabel } from "./entities/TextLabel"
+import { HudComponent } from "./enums/HudComponent"
+import { Font } from "./enums/Font"
+import network from "./data/Network"
+import { Color } from "./data/Color"
 
-let statusBar = new Text2D("", 0.002, 0.981, 0.3, Font.Monospace, Color.fromArgb(255, 255, 255, 180))
+let statusBar = new TextLabel("", 0.002, 0.981, 0.3, Font.Monospace, Color.fromArgb(255, 255, 255, 180))
 
 let drawStatusTextHandle = alt.everyTick(() => {
     statusBar.drawThisFrame()

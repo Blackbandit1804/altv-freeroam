@@ -1,14 +1,14 @@
 import * as alt from "alt-client"
 import * as native from "natives"
-import { VehicleSeat } from "./data/VehicleSeat";
-import skin from "./data/Skin";
-import network from "./data/Network";
+import { VehicleSeat } from "./enums/VehicleSeat"
+import skin from "./data/Skin"
+import network from "./data/Network"
 
 const lowestZCoord = -199.9
 
-alt.onServer("sendConsoleMessage", (message: string) => {
-    return alt.log(`[SERVER] ${message.replace(/[\n\r]/g, "")}`);
-})
+alt.onServer("sendConsoleMessage", (message: string) => alt.log(`[SERVER] ${message.replace(/[\n\r]/g, "")}`))
+
+alt.on("consoleCommand", (name: string, ...args: string[]) => alt.emitServer("commandEntered", name, args))
 
 alt.onServer("enterVehicle", (vehicle: alt.Vehicle) => {
     let handle = network.timedInterval(() => {
@@ -31,6 +31,7 @@ alt.onServer("clientConnected", () => {
     let handle = network.timedInterval(() => {
         if (native.getEntityModel(alt.Player.local.scriptID)) {
             skin.setDefault()
+            alt.emitServer("clientSpawned")
             alt.clearInterval(handle)
         }
     })
@@ -39,8 +40,4 @@ alt.onServer("clientConnected", () => {
 alt.onServer("fixVehicle", (vehicle: alt.Vehicle) => {
     native.setVehicleFixed(vehicle.scriptID)
     native.setVehicleDeformationFixed(vehicle.scriptID)
-})
-
-alt.on("consoleCommand", (name: string, ...args: string[]) => {
-    return alt.emitServer("commandEntered", name, args);
 })
