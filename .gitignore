@@ -476,6 +476,6 @@ dist
 .history
 
 # Typescript output files
-altv-freeroam-client/out
+AltV.Freeroam.Client/out
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,csharp,node
