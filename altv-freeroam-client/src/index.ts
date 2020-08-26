@@ -1,3 +1,2 @@
-import "./Events"
-import "./Hud"
-import "./EntitySync"
+import "./events"
+import "./hud"

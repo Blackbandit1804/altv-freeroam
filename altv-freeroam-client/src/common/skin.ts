@@ -1,7 +1,7 @@
 import * as alt from "alt-client"
 import * as native from "natives"
-import { PedModel } from "../enums/PedModel"
-import { Component } from "../enums/Component"
+import { PedModel } from "../enums/pedModel";
+import { Component } from "../enums/component";
 
 class Skin {
     getModel() {

@@ -1,10 +1,10 @@
 import * as alt from "alt-client"
 import * as native from "natives"
-import { TextLabel } from "./entities/TextLabel"
-import { HudComponent } from "./enums/HudComponent"
-import { Font } from "./enums/Font"
-import network from "./data/Network"
-import { Color } from "./data/Color"
+import { TextLabel } from "./entities/textLabel"
+import { Font } from "./enums/font"
+import { Color } from "./common/color"
+import { HudComponent } from "./enums/hudComponent"
+import network from "./common/network"
 
 let statusBar = new TextLabel("", 0.002, 0.981, 0.3, Font.Monospace, Color.fromArgb(255, 255, 255, 180))
 

@@ -1,6 +1,6 @@
 import * as native from "natives"
-import { Font } from "../enums/Font"
-import { Color } from "../data/Color"
+import { Font } from "../enums/font"
+import { Color } from "../common/color"
 
 export class TextLabel {
     text: string
