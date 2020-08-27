@@ -1,3 +1,4 @@
 export enum EntityType {
-    TextLabel
+    TextLabel,
+    Marker
 }

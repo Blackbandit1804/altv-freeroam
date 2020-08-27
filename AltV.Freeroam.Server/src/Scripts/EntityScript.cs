@@ -1,19 +1,13 @@
-using System;
-using System.Collections.Generic;
 using AltV.Net;
-using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.EntitySync;
 using AltV.Net.EntitySync.ServerEvent;
 using AltV.Net.EntitySync.SpatialPartitions;
-using AltV.Net.Enums;
 
 public sealed class EntityScript : IScript
 {
-    private IEnumerable<Position> SpawnPositions { get; set; } = new Position[] {
-        new Position(-61.0f, -135.4f, 56.8f)
-    };
-    public TextLabelCollection TextLabels { get; set; } = new TextLabelCollection();
+    private TextLabelCollection TextLabels { get; } = new TextLabelCollection();
+    private MarkerCollection Markers { get; } = new MarkerCollection();
 
     public EntityScript()
     {
@@ -24,23 +18,6 @@ public sealed class EntityScript : IScript
             (threadId) => new LimitedGrid3(50_000, 50_000, 100, 10_000, 10_000, 300), new IdProvider());
     }
 
-    [ScriptEvent(ScriptEventType.PlayerConnect)]
-    public void OnPlayerConnect(IPlayer player, string reason)
-    {
-        player.Model = (uint)PedModel.FreemodeMale01;
-        player.Spawn(SpawnPositions.Random());
-        player.Emit("clientConnected");
-    }
-
-    [ScriptEvent(ScriptEventType.PlayerDisconnect)]
-    public void OnPlayerDisconnect(IPlayer player, string reason)
-    {
-        
-    }
-
-    [ClientEvent("clientSpawned")]
-    public void OnClientSpawned(IPlayer player)
-    {
-
-    }
+    [ScriptEvent(ScriptEventType.ColShape)]
+    public void OnEntityColShapeHit(IColShape colShape, AltV.Net.Elements.Entities.IEntity entity, bool state) => Markers.Find(colShape)?.Handler?.Invoke(colShape, entity, state);
 }

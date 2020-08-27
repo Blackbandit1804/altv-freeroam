@@ -1,4 +1,5 @@
 public enum EntityType : ulong
 {
-    TextLabel
+    TextLabel,
+    Marker
 }

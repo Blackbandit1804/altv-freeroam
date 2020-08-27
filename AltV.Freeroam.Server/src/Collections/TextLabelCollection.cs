@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using AltV.Net.Elements.Entities;
+using System.Collections.ObjectModel;
 using AltV.Net.EntitySync;
 
 public sealed class TextLabelCollection : IEnumerable<TextLabel>
 {
-    private List<TextLabel> TextLabels { get; set; } = new List<TextLabel>();
+    private ICollection<TextLabel> TextLabels { get; } = new Collection<TextLabel>();
 
     public void Add(TextLabel textLabel)
     {

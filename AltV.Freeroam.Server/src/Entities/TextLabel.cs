@@ -12,11 +12,11 @@ public sealed class TextLabel : AltV.Net.EntitySync.Entity, AltV.Net.EntitySync.
     private uint font;
     private Rgba color;
 
-    public TextLabel(Vector3 position, uint range, string text, float scale, uint font, Rgba color) : base((ulong)EntityType.TextLabel, position, AltV.Net.Data.Dimension.DefaultDimension, range)
+    public TextLabel(Vector3 position, uint range, string text, float scale, Font font, Rgba color) : base((ulong)EntityType.TextLabel, position, AltV.Net.Data.Dimension.DefaultDimension, range)
     {
         Text = text;
         Scale = scale;
-        Font = font;
+        Font = (uint)font;
         Color = color;
     }
 }

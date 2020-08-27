@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public static class Timer
 {
-    private static IDictionary<int, System.Threading.Timer> RegisteredTimers = new Dictionary<int, System.Threading.Timer>();
+    private static IDictionary<int, System.Threading.Timer> RegisteredTimers { get; } = new Dictionary<int, System.Threading.Timer>();
 
     public static int Register(Action value, TimeSpan period)
     {

@@ -1,20 +1,19 @@
 import * as native from "natives"
 import { Font } from "../enums/font"
 import { Color } from "../common/color"
+import { Vector3 } from "alt-client"
 
 export class TextLabel {
     text: string
-    x: number
-    y: number
+    position: Vector3
     scale: number
     font: Font
     color: Color
     active: boolean
 
-    constructor(text: string, x: number, y: number, scale: number, font = Font.ChaletComprimeCologne, color = Color.fromRgb(255, 255, 255), active = true) {
+    constructor(text: string, position: Vector3, scale: number, font: Font, color: Color, active = true) {
         this.text = text
-        this.x = x
-        this.y = y
+        this.position = position
         this.scale = scale
         this.font = font
         this.color = color
@@ -23,13 +22,20 @@ export class TextLabel {
 
     drawThisFrame() {
         if (this.active) {
-            native.setTextScale(0, this.scale)
+            let p = native.getGameplayCamCoord()
+            let dist = native.getDistanceBetweenCoords(p.x, p.y, p.z, this.position.x, this.position.y, this.position.z, true)
+            let scale = (1 / dist) * 20
+            let fov = (1 / native.getGameplayCamFov()) * 100
+            scale = scale * fov
+            native.setTextScale(0, this.scale * scale)
             native.setTextColour(this.color.red, this.color.green, this.color.blue, this.color.alpha)
             native.setTextFont(this.font)
             native.setTextOutline()
+            native.setDrawOrigin(this.position.x, this.position.y, this.position.z, 0)
             native.beginTextCommandDisplayText("STRING")
             native.addTextComponentSubstringPlayerName(this.text)
-            native.endTextCommandDisplayText(this.x, this.y, 0.0)
+            native.endTextCommandDisplayText(0, 0, 0)
+            native.clearDrawOrigin()
         }
     }
 }
